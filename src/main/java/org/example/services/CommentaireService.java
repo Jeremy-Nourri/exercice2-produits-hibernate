@@ -1,16 +1,20 @@
 package org.example.services;
 
+import org.example.entities.Commentaire;
 import org.example.entities.Image;
-import org.example.entities.Produit;
 import org.example.interfaces.Repository;
 import org.hibernate.query.Query;
 
 import java.util.List;
 
-public class CommentaireService extends BaseService implements Repository<Image> {
+public class CommentaireService extends BaseService implements Repository<Commentaire> {
+
+    public CommentaireService() {
+        super();
+    }
 
     @Override
-    public boolean create(Image o) {
+    public boolean create(Commentaire o) {
         session = sessionFactory.openSession();
         session.beginTransaction();
         session.save(o);
@@ -20,7 +24,7 @@ public class CommentaireService extends BaseService implements Repository<Image>
     }
 
     @Override
-    public boolean update(Image o) {
+    public boolean update(Commentaire o) {
         session = sessionFactory.openSession();
         session.beginTransaction();
         session.update(o);
@@ -30,7 +34,7 @@ public class CommentaireService extends BaseService implements Repository<Image>
     }
 
     @Override
-    public boolean delete(Image o) {
+    public boolean delete(Commentaire o) {
         session = sessionFactory.openSession();
         session.beginTransaction();
         session.delete(o);
@@ -40,19 +44,19 @@ public class CommentaireService extends BaseService implements Repository<Image>
     }
 
     @Override
-    public Image findById(int id) {
+    public Commentaire findById(int id) {
         session = sessionFactory.openSession();
-        Image image = session.get(Image.class,id);
+        Commentaire commentaire = session.get(Commentaire.class,id);
         session.close();
-        return image;
+        return commentaire;
     }
 
     @Override
-    public List<Image> findAll() {
+    public List<Commentaire> findAll() {
         session = sessionFactory.openSession();
-        Query<Image> imageQuery = session.createQuery("from Image ", Image.class);
-        List<Image> imageList = imageQuery.list();
+        Query<Commentaire> commentaireQuery = session.createQuery("from Commentaire ", Commentaire.class);
+        List<Commentaire> commentaireList = commentaireQuery.list();
         session.close();
-        return imageList;
+        return commentaireList;
     }
 }
