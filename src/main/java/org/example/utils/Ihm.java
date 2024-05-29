@@ -4,6 +4,8 @@ import org.example.entities.Produit;
 import org.example.services.ImageService;
 import org.example.services.ProduitService;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -15,7 +17,7 @@ public class Ihm {
     public Ihm() {
     }
 
-    public void start() {
+    public void start() throws ParseException {
 
         boolean exit = false;
 
@@ -87,18 +89,21 @@ public class Ihm {
             }
     }
 
-    public void displayProductsByDates() {
-
-            System.out.println("Veuillez entrer une date de début.");
-            String startD = sc.nextLine();
-            Date startDate = new Date(startD);
-            System.out.println("Veuillez entrer une date de fin.");
-            String endD = sc.nextLine();
-            Date endDate = new Date(endD);
+    public void displayProductsByDates() throws ParseException {
+        try {
+            System.out.println("Veuillez saisir une premiere date (dd/MM/yyyy) :");
+            String s1 = sc.nextLine();
+            Date startDate = new SimpleDateFormat("dd/MM/yyyy").parse(s1);
+            System.out.println("Veuillez saisir une premiere date (dd/MM/yyyy) :");
+            String s2 = sc.nextLine();
+            Date endDate = new SimpleDateFormat("dd/MM/yyyy").parse(s2);
             List<Produit> produitList = ps.findProductsBetweenDates(startDate, endDate);
-            for (Produit p: produitList){
+            for (Produit p : produitList) {
                 System.out.println(p);
             }
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     public void displayValueOfStockByBrand() {
@@ -128,12 +133,7 @@ public class Ihm {
         System.out.println("Veuillez entrer une marque.");
         String brand = sc.nextLine();
         ps.deleteProductsByBrand(brand);
-        List<Produit> produitList = ps.findProductsByBrand(brand);
-        if (produitList.isEmpty()) {
-            System.out.println("Tous les produits de la marque " + brand + " ont été supprimés");
-        } else {
-            System.out.println("Erreur de suppression des produits de la marque " + brand + ".");
-        }
+        ps.findProductsByBrand(brand);
 
     }
 
