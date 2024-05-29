@@ -29,7 +29,4 @@ public class Commentaire {
     @ManyToOne
     @JoinColumn(name = "produit_id")
     private Produit produit;
-
-
-
 }

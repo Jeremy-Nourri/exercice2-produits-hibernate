@@ -74,5 +74,4 @@ public class ImageService extends BaseService implements Repository<Image> {
             System.out.println("Produit non trouvé avec l'id : " + productId);
         }
     }
-
 }

@@ -1,6 +1,5 @@
 package org.example.utils;
 
-import org.example.entities.Image;
 import org.example.entities.Produit;
 import org.example.services.ImageService;
 import org.example.services.ProduitService;
@@ -30,7 +29,7 @@ public class Ihm {
             System.out.println("6/ Afficher tous les produits d'une marque");
             System.out.println("7/ Supprimer tous le sproduits d'une marque");
             System.out.println("8/ Ajouter une image à un produit");
-            System.out.println("9/ Quitter ");
+            System.out.println("0/ Quitter ");
             System.out.println("-------------------");
             int entry = sc.nextInt();
             sc.nextLine();
@@ -58,7 +57,7 @@ public class Ihm {
                     break;
                 case 8:
                     addPictureToProduct();
-                case 9:
+                case 0:
                     exit = true;
                     break;
                 default:
@@ -67,6 +66,8 @@ public class Ihm {
             }
 
         } while (!exit);
+
+        ps.close();
     }
 
     public void displayAllProducts(){
@@ -132,7 +133,6 @@ public class Ihm {
             System.out.println("Tous les produits de la marque " + brand + " ont été supprimés");
         } else {
             System.out.println("Erreur de suppression des produits de la marque " + brand + ".");
-
         }
 
     }
@@ -147,10 +147,5 @@ public class Ihm {
         ImageService imageService = new ImageService(ps);
 
         imageService.addPictureToProduct(url, productId);
-
     }
-
-
-
-
 }
