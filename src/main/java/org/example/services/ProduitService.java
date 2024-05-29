@@ -3,6 +3,8 @@ package org.example.services;
 import org.example.entities.Produit;
 import org.example.interfaces.Repository;
 
+import org.hibernate.query.Query;
+
 import java.util.Date;
 import java.util.List;
 
@@ -80,4 +82,56 @@ public class ProduitService extends BaseService implements Repository<Produit> {
     public void close(){
         sessionFactory.close();
     }
+
+//    1. Afficher la valeur du stock des produits d'une marque choisie.
+//    2. Calculer le prix moyen des produits.
+//    3. Récupérer la liste des produits d'une marque choisie.
+//    4. Supprimer les produits d'une marque choisie de la table produit.
+
+    public List<Produit> findProductsByBrand(String brand) {
+        session = sessionFactory.openSession();
+        Query<Produit> produitsQuery = session.createQuery("from Produit where marque = :brand", Produit.class);
+        produitsQuery.setParameter("brand", brand);
+        List<Produit> produitList = produitsQuery.list();
+        session.close();
+        return produitList;
+    }
+
+    public double valueOfStock(List<Produit> produitsList) {
+        double totalValue = 0;
+        for (Produit produit : produitsList) {
+            totalValue += produit.getPrix() * produit.getStock();
+        }
+        return totalValue;
+    }
+
+    public double getAveragePriceOfAllProducts(List<Produit> produitsList) {
+        session = sessionFactory.openSession();
+        Query<Double> query = session.createQuery("select avg(prix) from Produit", Double.class);
+        return query.getSingleResult();
+    }
+
+    public void deleteProductsByBrand(String brand) {
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query<?> query = session.createQuery("delete from Produit where marque = :brand");
+        query.setParameter("brand", brand);
+
+        int rowsAffected = query.executeUpdate();
+
+        session.getTransaction().commit();
+
+        if (rowsAffected > 0) {
+            System.out.println(rowsAffected + " produits de la marque " + brand + " ont été supprimés.");
+        } else {
+            System.out.println("Aucun produit trouvé pour la marque " + brand);
+        }
+        session.close();
+    }
+
+
+
+
+
+
 }

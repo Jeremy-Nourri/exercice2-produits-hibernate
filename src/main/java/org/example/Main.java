@@ -1,11 +1,15 @@
 package org.example;
 
 import org.example.services.ProduitService;
+import org.example.utils.Ihm;
 
 public class Main {
     public static void main(String[] args) {
 
-        ProduitService ps = new ProduitService();
+        Ihm ihm = new Ihm();
+        ihm.start();
+
+//        ProduitService ps = new ProduitService();
 
 //        ps.create(Produit.builder()
 //                .dateAchat(new Date("2024/05/20"))
@@ -49,4 +53,6 @@ public class Main {
 
 
     }
+
+
 }
