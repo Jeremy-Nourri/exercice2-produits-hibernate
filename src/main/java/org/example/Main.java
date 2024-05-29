@@ -3,8 +3,10 @@ package org.example;
 import org.example.services.ProduitService;
 import org.example.utils.Ihm;
 
+import java.text.ParseException;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
 
         Ihm ihm = new Ihm();
         ihm.start();

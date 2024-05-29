@@ -5,8 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
-
+import java.time.LocalDate;
 @Entity
 @Data
 @Builder
@@ -21,8 +20,7 @@ public class Commentaire {
 
     private String content;
 
-    @Temporal(TemporalType.DATE)
-    private Date date;
+    private LocalDate date;
 
     private int note;
 

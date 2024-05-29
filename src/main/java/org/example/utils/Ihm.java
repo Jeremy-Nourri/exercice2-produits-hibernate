@@ -1,11 +1,14 @@
 package org.example.utils;
 
+import org.example.entities.Commentaire;
 import org.example.entities.Produit;
+import org.example.services.CommentaireService;
 import org.example.services.ImageService;
 import org.example.services.ProduitService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -31,6 +34,7 @@ public class Ihm {
             System.out.println("6/ Afficher tous les produits d'une marque");
             System.out.println("7/ Supprimer tous le sproduits d'une marque");
             System.out.println("8/ Ajouter une image à un produit");
+            System.out.println("9/ Ajouter une image à un produit");
             System.out.println("0/ Quitter ");
             System.out.println("-------------------");
             int entry = sc.nextInt();
@@ -58,7 +62,11 @@ public class Ihm {
                     deleteProductsByBrand();
                     break;
                 case 8:
-                    addPictureToProduct();
+                    addPictureToProductIhm();
+                    break;
+                case 9:
+                    addCommentToProductIhm();
+                    break;
                 case 0:
                     exit = true;
                     break;
@@ -137,7 +145,7 @@ public class Ihm {
 
     }
 
-    public void addPictureToProduct() {
+    public void addPictureToProductIhm() {
         System.out.println("Veuillez entrer l'url de votre image.");
         String url = sc.nextLine();
 
@@ -147,5 +155,24 @@ public class Ihm {
         ImageService imageService = new ImageService(ps);
 
         imageService.addPictureToProduct(url, productId);
+    }
+
+    public void addCommentToProductIhm() {
+        System.out.println("Veuillez entrer l'id du produit sur lequel vous souhaitez ajouter un commentaire.");
+        int productId = sc.nextInt();
+        sc.nextLine();
+        System.out.println("Veuillez entrer votre commentaire.");
+        String content = sc.nextLine();
+        System.out.println("Veuillez entrer une note");
+        int note = sc.nextInt();
+        sc.nextLine();
+
+        LocalDate dateNow = LocalDate.now();
+
+        CommentaireService commentaireService = new CommentaireService(ps);
+
+        commentaireService.addCommentToProduct(content, dateNow, note, productId);
+
+
     }
 }

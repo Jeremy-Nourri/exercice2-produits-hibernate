@@ -1,16 +1,20 @@
 package org.example.services;
 
 import org.example.entities.Commentaire;
-import org.example.entities.Image;
+import org.example.entities.Produit;
 import org.example.interfaces.Repository;
 import org.hibernate.query.Query;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class CommentaireService extends BaseService implements Repository<Commentaire> {
 
-    public CommentaireService() {
+    private final ProduitService produitService;
+
+    public CommentaireService(ProduitService produitService) {
         super();
+        this.produitService = produitService;
     }
 
     @Override
@@ -58,5 +62,20 @@ public class CommentaireService extends BaseService implements Repository<Commen
         List<Commentaire> commentaireList = commentaireQuery.list();
         session.close();
         return commentaireList;
+    }
+
+    public void addCommentToProduct(String content, LocalDate date, int note, int productId) {
+        Produit produit = produitService.findById(productId);
+
+        if (produit != null) {
+            Commentaire commentaire = Commentaire.builder()
+                    .content(content)
+                    .date(date)
+                    .note(note)
+                    .produit(produit)
+                    .build();
+        } else {
+            System.out.println("Produit non trouvé avec l'id : " + productId);
+        }
     }
 }
