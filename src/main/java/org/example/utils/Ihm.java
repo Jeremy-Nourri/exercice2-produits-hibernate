@@ -15,12 +15,14 @@ public class Ihm {
 
     public void start() {
 
+        boolean exit = false;
 
         do {
             System.out.println("Menu : ");
             System.out.println("1/ Afficher tous les produits");
             System.out.println("2/ Afficher la liste des produits dont le prix est supérieur au montant souhaité");
             System.out.println("3/ Afficher la liste des produits achetés entre deux dates souhaitées");
+            System.out.println("4/ Quitter ");
             System.out.println("-------------------");
             int entry = sc.nextInt();
             switch (entry) {
@@ -33,12 +35,15 @@ public class Ihm {
                 case 3:
                     displayProductsByDates();
                     break;
+                case 4 :
+                    exit = true;
+                    break;
                 default:
                     System.out.println("Option invalide. Veuillez réessayer.");
                     break;
             }
 
-        } while (true);
+        } while (!exit);
     }
 
 //    1. Afficher la totalité des produits
@@ -46,16 +51,14 @@ public class Ihm {
 //3. Afficher la liste des produits achetés entre deux dates.
 
     public void displayProductsByPriceMoreThan() {
-        do {
             System.out.println("Veuillez entrer le montant souhaité.");
             int entry = sc.nextInt();
             sc.nextLine();
             ps.findProductsPriceMoreThan(entry);
-        } while(true);
     }
 
     public void displayProductsByDates() {
-        do {
+
             System.out.println("Veuillez entrer une date de début.");
             String startD = sc.nextLine();
             Date startDate = new Date(startD);
@@ -63,7 +66,7 @@ public class Ihm {
             String endD = sc.nextLine();
             Date endDate = new Date(endD);
             ps.findProductsBetweenDates(startDate, endDate);
-        } while(true);
+
     }
 
 }
