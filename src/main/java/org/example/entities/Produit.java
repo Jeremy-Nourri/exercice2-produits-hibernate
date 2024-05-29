@@ -31,4 +31,15 @@ public class Produit {
     @Temporal(TemporalType.DATE)
     private Date dateAchat;
 
+    public String toString() {
+        return "Produit{" +
+                "id=" + id +
+                ", marque='" + marque + '\'' +
+                ", reference='" + reference + '\'' +
+                ", prix=" + prix +
+                ", stock=" + stock +
+                ", dateAchat=" + dateAchat +
+                '}';
+    }
+
 }

@@ -33,7 +33,7 @@ public class Ihm {
             sc.nextLine();
             switch (entry) {
                 case 1:
-                    ps.findAll();
+                    displayAllProducts();
                     break;
                 case 2:
                     displayProductsByPriceMoreThan();
@@ -43,12 +43,16 @@ public class Ihm {
                     break;
                 case 4:
                     displayValueOfStockByBrand();
+                    break;
                 case 5:
                     displayAveragePrice();
+                    break;
                 case 6:
                     displayProductsByBrand();
+                    break;
                 case 7:
                     deleteProductsByBrand();
+                    break;
                 case 8:
                     exit = true;
                     break;
@@ -64,13 +68,20 @@ public class Ihm {
 //2. Afficher la liste des produits dont le prix est supérieur à 100 euros
 //3. Afficher la liste des produits achetés entre deux dates.
 
+    public void displayAllProducts(){
+        List<Produit> produitList = ps.findAll();
+        for (Produit p: produitList){
+            System.out.println(p);
+        }
+    }
+
     public void displayProductsByPriceMoreThan() {
             System.out.println("Veuillez entrer le montant souhaité.");
             int entry = sc.nextInt();
             sc.nextLine();
             List<Produit> produitList = ps.findProductsPriceMoreThan(entry);
-            for (Produit p: produitList){
-                System.out.println(p);
+            for (Produit p : produitList){
+                System.out.println(p.toString());
             }
     }
 

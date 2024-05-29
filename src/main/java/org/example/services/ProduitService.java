@@ -54,13 +54,15 @@ public class ProduitService extends BaseService implements Repository<Produit> {
 
     @Override
     public List<Produit> findAll() {
+        List<Produit> produitList = null;
         session = sessionFactory.openSession();
-        List<Produit> produits = session.createQuery("from Produit", Produit.class).list();
+        Query<Produit> produitQuery = session.createQuery("from Produit ");
+        produitList = produitQuery.list();
         session.close();
-        return produits;
+        return produitList;
     }
 
-    public List<Produit> findProductsPriceMoreThan(int price) {
+    public List<Produit> findProductsPriceMoreThan(double price) {
         session = sessionFactory.openSession();
         List<Produit> produits = session.createQuery("from Produit where prix > :price", Produit.class)
                 .setParameter("price", price)
