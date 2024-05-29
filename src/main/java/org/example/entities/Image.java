@@ -20,4 +20,10 @@ public class Image {
     private int id;
 
     private String url;
+
+    @ManyToOne
+    @JoinColumn(name = "produit_id")
+    private Produit produit;
+
+
 }

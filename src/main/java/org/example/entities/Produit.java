@@ -6,7 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -30,6 +32,12 @@ public class Produit {
 
     @Temporal(TemporalType.DATE)
     private Date dateAchat;
+
+    @OneToMany(mappedBy = "produit", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Image> imageList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "produit", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Commentaire> commentaireListList = new ArrayList<>();
 
     public String toString() {
         return "Produit{" +

@@ -54,10 +54,9 @@ public class ProduitService extends BaseService implements Repository<Produit> {
 
     @Override
     public List<Produit> findAll() {
-        List<Produit> produitList = null;
         session = sessionFactory.openSession();
-        Query<Produit> produitQuery = session.createQuery("from Produit ");
-        produitList = produitQuery.list();
+        Query<Produit> produitQuery = session.createQuery("from Produit ", Produit.class);
+        List<Produit> produitList = produitQuery.list();
         session.close();
         return produitList;
     }
@@ -84,11 +83,6 @@ public class ProduitService extends BaseService implements Repository<Produit> {
     public void close(){
         sessionFactory.close();
     }
-
-//    1. Afficher la valeur du stock des produits d'une marque choisie.
-//    2. Calculer le prix moyen des produits.
-//    3. Récupérer la liste des produits d'une marque choisie.
-//    4. Supprimer les produits d'une marque choisie de la table produit.
 
     public List<Produit> findProductsByBrand(String brand) {
         session = sessionFactory.openSession();
@@ -130,10 +124,5 @@ public class ProduitService extends BaseService implements Repository<Produit> {
         }
         session.close();
     }
-
-
-
-
-
 
 }

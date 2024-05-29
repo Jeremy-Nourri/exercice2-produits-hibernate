@@ -26,5 +26,10 @@ public class Commentaire {
 
     private int note;
 
+    @ManyToOne
+    @JoinColumn(name = "produit_id")
+    private Produit produit;
+
+
 
 }
