@@ -121,10 +121,10 @@ public class Ihm {
         } else {
             System.out.println("Erreur de suppression des produits de la marque " + brand + ".");
 
+        }
+
+
     }
-
-
-
 
 
 }
